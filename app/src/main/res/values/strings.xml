@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">My Game</string>
+
+    <string name="rank_title">RANK</string>
+    <string name="name_title">NAME</string>
+    <string name="score_title">SCORE</string>
+    <string name="life_title">LIFE</string>
+    <string name="time_title">TIME</string>
+    <string name="rank_index">1</string>
+
+
+    <string name="add_point">+1</string>
+    <string name="take_point">-1</string>
+
+    <string name="add_life">+♥</string>
+    <string name="take_life">-♥</string>
+
+    <string name="reset_time">00:00</string>
+    <string name="time">00:44</string>
+
+
+    <string name="name_dummy">PETER DUMMY</string>
+    <string name="score_dummy">498</string>
+    <string name="send_database">SAVE</string>
+
+</resources>

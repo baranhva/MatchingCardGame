@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FBD000</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#43B047</color>
+
+    <color name="superMarioBlue">#049CD8</color>
+    <color name="superMarioWhite">#FFFFFF</color>
+    <color name="superMarioBlack">#000000</color>
+    <color name="superMarioYellow">#FBD000</color>
+    <color name="superMarioRed">#E52521</color>
+    <color name="superMarioGreen">#43B047</color>
+
+    <color name="pacmanYellow">#FFFF00</color>
+    <color name="pacmanBlue">#1919A6</color>
+    <color name="pacmanBlueLight">#2121DE</color>
+    <color name="pacmanPink">#DEA185</color>
+    <color name="pacmanRed">#FD0000</color>
+    <color name="pacmanGreen">#00FF00</color>
+
+
+</resources>
