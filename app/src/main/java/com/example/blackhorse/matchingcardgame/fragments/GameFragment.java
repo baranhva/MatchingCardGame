@@ -4,8 +4,10 @@ package com.example.blackhorse.matchingcardgame.fragments;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +19,11 @@ import android.widget.TextView;
 import com.example.blackhorse.matchingcardgame.R;
 import com.example.blackhorse.matchingcardgame.database.GameDatabase;
 import com.example.blackhorse.matchingcardgame.models.Game;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
@@ -37,6 +43,7 @@ public class GameFragment extends Fragment {
     private TextInputLayout yourName;
 
     public static GameDatabase db;
+    FirebaseFirestore firebaseDb;
 
     private int countScore = 0;
     private int countLife = 0;
@@ -68,6 +75,9 @@ public class GameFragment extends Fragment {
 
         db = GameDatabase.getInstance(view.getContext());
 
+        // Access a Cloud Firestore instance from your Activity
+        firebaseDb = FirebaseFirestore.getInstance();
+
         new GameAsyncTask(TASK_GET_ALL_GAME).execute();
 
         updateLife(countLife);
@@ -79,6 +89,22 @@ public class GameFragment extends Fragment {
                 String name = yourName.getEditText().getText().toString();
                 Game game = new Game(name, countScore);
                 new GameAsyncTask(TASK_INSERT_GAME).execute(game);
+
+                // Add a new document with a generated ID
+                firebaseDb.collection("scores")
+                        .add(game)
+                        .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference) {
+                                Log.d("Gamefragment", "DocumentSnapshot added with ID: " + documentReference.getId());
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w("Gamefragment", "Error adding document", e);
+                            }
+                        });
             }
         });
 
@@ -186,7 +212,7 @@ public class GameFragment extends Fragment {
             super.onPostExecute(list);
             if (list != null) {
                 if (!list.isEmpty()) {
-                    onGameDbUpdated(list.get(list.size()-1));
+                    onGameDbUpdated(list.get(list.size() - 1));
                 }
             }
         }
