@@ -19,6 +19,8 @@ public class Game implements Parcelable {
     @ColumnInfo(name = "score")
     private int score;
 
+public Game(){}
+
     public Game(String userName, int score) {
         this.userName = userName;
         this.score = score;
@@ -31,7 +33,6 @@ public class Game implements Parcelable {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
 
     public int getScore() {
         return score;
