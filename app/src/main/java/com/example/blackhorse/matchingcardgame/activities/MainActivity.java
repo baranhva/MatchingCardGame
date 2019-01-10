@@ -23,14 +23,12 @@ public class MainActivity extends AppCompatActivity {
     SpaceNavigationView spaceNavigationView;
     ViewPager viewPager;
     SectionPageAdapter pageAdapter;
-//    public static GameDatabase db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        db = GameDatabase.getInstance(this);
         viewPager = findViewById(R.id.viewPager);
         pageAdapter = new SectionPageAdapter(getSupportFragmentManager(), 2);
         viewPager.setAdapter(pageAdapter);

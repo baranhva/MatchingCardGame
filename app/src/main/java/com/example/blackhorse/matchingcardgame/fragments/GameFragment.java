@@ -1,6 +1,7 @@
 package com.example.blackhorse.matchingcardgame.fragments;
 
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -14,18 +15,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.blackhorse.matchingcardgame.R;
+import com.example.blackhorse.matchingcardgame.database.GameDatabase;
+import com.example.blackhorse.matchingcardgame.models.Game;
 import com.google.android.material.textfield.TextInputLayout;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class GameFragment extends Fragment {
 
+    public final static int TASK_GET_ALL_GAME = 0;
+    public final static int TASK_DELETE_GAME = 1;
+    public final static int TASK_UPDATE_GAME = 2;
+    public final static int TASK_INSERT_GAME = 3;
 
     private ImageView life1, life2, life3;
     private TextView yourScore, time;
     private Button addPoint, takePoint, addLife, takeLife, resetTime, save;
     private TextInputLayout yourName;
+
+    public static GameDatabase db;
 
     private int countScore = 0;
     private int countLife = 0;
@@ -55,7 +66,21 @@ public class GameFragment extends Fragment {
         yourName = view.findViewById(R.id.yourName);
         yourScore.setText(String.valueOf(countScore));
 
+        db = GameDatabase.getInstance(view.getContext());
+
+        new GameAsyncTask(TASK_GET_ALL_GAME).execute();
+
         updateLife(countLife);
+
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = yourName.getEditText().getText().toString();
+                Game game = new Game(name, countScore);
+                new GameAsyncTask(TASK_INSERT_GAME).execute(game);
+            }
+        });
 
 
         addLife.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +88,11 @@ public class GameFragment extends Fragment {
             public void onClick(View v) {
                 life1.setVisibility(View.INVISIBLE);
 
-                if(countLife<3){
+                if (countLife < 3) {
                     countLife++;
                 }
                 updateLife(countLife);
-                
+
             }
         });
 
@@ -107,20 +132,71 @@ public class GameFragment extends Fragment {
                 life1.setVisibility(View.INVISIBLE);
                 life2.setVisibility(View.INVISIBLE);
                 life3.setVisibility(View.INVISIBLE);
+                break;
             case 1:
                 life1.setVisibility(View.VISIBLE);
                 life2.setVisibility(View.INVISIBLE);
                 life3.setVisibility(View.INVISIBLE);
+                break;
             case 2:
                 life1.setVisibility(View.VISIBLE);
                 life2.setVisibility(View.VISIBLE);
                 life3.setVisibility(View.INVISIBLE);
+                break;
             case 3:
                 life1.setVisibility(View.VISIBLE);
                 life2.setVisibility(View.VISIBLE);
                 life3.setVisibility(View.VISIBLE);
+                break;
         }
 
+    }
+
+    public class GameAsyncTask extends AsyncTask<Game, Void, List<Game>> {
+
+        private int taskCode;
+
+        public GameAsyncTask(int taskCode) {
+
+            this.taskCode = taskCode;
+
+        }
+
+
+        @Override
+
+        protected List doInBackground(Game... games) {
+            switch (taskCode) {
+                case TASK_DELETE_GAME:
+                    db.gameDao().deleteGames(games[0]);
+                    break;
+                case TASK_UPDATE_GAME:
+                    db.gameDao().updateGames(games[0]);
+                    break;
+                case TASK_INSERT_GAME:
+                    db.gameDao().insertGames(games[0]);
+                    break;
+            }
+            //To return a new list with the updated data, we get all the data from the database again.
+            return db.gameDao().getAllGames();
+        }
+
+        @Override
+        protected void onPostExecute(List<Game> list) {
+            super.onPostExecute(list);
+            if (list != null) {
+                if (!list.isEmpty()) {
+                    onGameDbUpdated(list.get(list.size()-1));
+                }
+            }
+        }
+
+    }
+
+    public void onGameDbUpdated(Game game) {
+        yourName.getEditText().setText(game.getUserName());
+        countScore = game.getScore();
+        yourScore.setText(String.valueOf(countScore));
     }
 
 }

@@ -175,6 +175,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/superMarioRed"
             android:hint="@string/name_title" />
     </com.google.android.material.textfield.TextInputLayout>
 
