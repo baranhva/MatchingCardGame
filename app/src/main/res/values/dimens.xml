@@ -5,5 +5,10 @@
 
     <dimen name="text_size_16dp">16dp</dimen>
 
+    <dimen name="size_8dp">8dp</dimen>
+    <dimen name="size_16dp">16dp</dimen>
+    <dimen name="size_32dp">32dp</dimen>
+    <dimen name="size_64dp">64dp</dimen>
+
 
 </resources>

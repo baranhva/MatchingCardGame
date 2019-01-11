@@ -46,5 +46,9 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-firestore:17.1.5'
 
+    //confetti
+      implementation 'nl.dionsegijn:konfetti:1.1.2'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71'
+
 }
 apply plugin: 'com.google.gms.google-services'

@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".fragments.GameFragment">
 
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/viewKonfetti"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
     <TextView
         android:id="@+id/lifeTitle"
         android:layout_width="wrap_content"
@@ -24,7 +29,8 @@
         android:src="@drawable/red_heart"
         app:layout_constraintEnd_toStartOf="@+id/life2"
         app:layout_constraintStart_toStartOf="@+id/lifeTitle"
-        app:layout_constraintTop_toTopOf="@+id/life2" />
+        app:layout_constraintTop_toTopOf="@+id/life2"
+        android:contentDescription="@string/name_dummy"/>
 
     <ImageView
         android:id="@+id/life2"
@@ -33,7 +39,8 @@
         android:src="@drawable/red_heart"
         app:layout_constraintEnd_toEndOf="@+id/lifeTitle"
         app:layout_constraintStart_toStartOf="@+id/lifeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/lifeTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/lifeTitle"
+         android:contentDescription="@string/name_dummy"/>
 
     <ImageView
         android:id="@+id/life3"
@@ -42,7 +49,8 @@
         android:src="@drawable/red_heart"
         app:layout_constraintEnd_toEndOf="@+id/lifeTitle"
         app:layout_constraintStart_toEndOf="@+id/life2"
-        app:layout_constraintTop_toTopOf="@+id/life2" />
+        app:layout_constraintTop_toTopOf="@+id/life2"
+         android:contentDescription="@string/name_dummy"/>
 
     <TextView
         android:id="@+id/scoreTitle"
@@ -76,20 +84,19 @@
         app:layout_constraintStart_toEndOf="@+id/scoreTitle"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/time"
+        <Chronometer
+        android:id="@+id/chronometer"
+        android:textColor="@color/superMarioBlue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/time"
-        android:textColor="@color/superMarioYellow"
         app:layout_constraintEnd_toEndOf="@+id/timeTitle"
         app:layout_constraintStart_toStartOf="@+id/timeTitle"
-        app:layout_constraintTop_toBottomOf="@+id/timeTitle" />
-
+        app:layout_constraintTop_toBottomOf="@+id/timeTitle">
+    </Chronometer>
 
     <Button
         android:id="@+id/addLife"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:background="@color/superMarioGreen"
@@ -101,7 +108,7 @@
 
     <Button
         android:id="@+id/takeLife"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/superMarioYellow"
@@ -114,7 +121,7 @@
 
     <Button
         android:id="@+id/addPoint"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:background="@color/superMarioGreen"
@@ -126,7 +133,7 @@
 
     <Button
         android:id="@+id/takePoint"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@color/superMarioYellow"
@@ -136,48 +143,34 @@
         app:layout_constraintStart_toStartOf="@+id/addPoint"
         app:layout_constraintTop_toBottomOf="@+id/addPoint" />
 
-    <Button
-        android:id="@+id/resetTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:background="@color/superMarioBlue"
-        android:text="@string/reset_time"
-        android:textColor="@color/superMarioRed"
-        app:layout_constraintEnd_toEndOf="@+id/time"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/time"
-        app:layout_constraintTop_toBottomOf="@+id/time" />
-
-    <Button
-        android:id="@+id/save"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/yourName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="64dp"
+        app:layout_constraintBottom_toTopOf="@+id/save"
+        app:layout_constraintEnd_toEndOf="@+id/chronometer"
+        app:layout_constraintStart_toStartOf="@+id/takeLife">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name_title"
+            android:textColor="@color/superMarioRed" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="64dp"
         android:background="@color/pacmanBlueLight"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginStart="@dimen/size_16dp"
+        android:layout_marginEnd="@dimen/size_16dp"
         android:text="@string/send_database"
         android:textColor="@color/pacmanYellow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/yourName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/save"
-        app:layout_constraintEnd_toEndOf="@+id/save"
-        app:layout_constraintStart_toStartOf="@+id/save">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/superMarioRed"
-            android:hint="@string/name_title" />
-    </com.google.android.material.textfield.TextInputLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

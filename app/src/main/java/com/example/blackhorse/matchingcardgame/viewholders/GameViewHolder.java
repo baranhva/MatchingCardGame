@@ -22,8 +22,8 @@ public class GameViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         gameScore = itemView.findViewById(R.id.score);
         gameRank = itemView.findViewById(R.id.rank);
         view = itemView;
-        // do i need this? why?
-        itemView.setOnClickListener(this);
+//        // do i need this? why?
+//        itemView.setOnClickListener(this);
     }
 
     @Override
