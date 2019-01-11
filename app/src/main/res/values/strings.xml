@@ -20,6 +20,9 @@
     <string name="pause">PAUSE</string>
     <string name="start">START</string>
 
+    <string name="sound_effects">SOUND EFFECTS</string>
+    <string name="background_sound">BACKGROUND SOUND</string>
+    <string name="background_color">BACKGROUND COLOR</string>
 
     <string name="name_dummy">TEST TEST</string>
     <string name="score_dummy">498</string>

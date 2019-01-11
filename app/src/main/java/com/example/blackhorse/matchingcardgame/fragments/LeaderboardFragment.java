@@ -43,19 +43,17 @@ public class LeaderboardFragment extends Fragment {
 
 
     public LeaderboardFragment() {
-        // Required empty public constructor
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //Initialize the local variables
-        View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        final View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         this.mGames = new ArrayList<>();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(view.getContext(), RecyclerView.VERTICAL, false));
 
-        // Access a Cloud Firestore instance from your Activity
+        // Access a Cloud Firestore instance from your fragment
         firebaseDb = FirebaseFirestore.getInstance();
 
         firebaseDb.collection("scores")
@@ -76,6 +74,7 @@ public class LeaderboardFragment extends Fragment {
                         }
                     }
                 });
+
         GameAdapter mAdapter = new GameAdapter(mGames);
         mRecyclerView.setAdapter(mAdapter);
 
@@ -102,7 +101,6 @@ public class LeaderboardFragment extends Fragment {
                                     break;
                             }
                         }
-
                         updateUI();
                     }
                 });
@@ -116,7 +114,7 @@ public class LeaderboardFragment extends Fragment {
             mAdapter = new GameAdapter(mGames);
             mRecyclerView.setAdapter(mAdapter);
         } else {
-            mAdapter.notifyDataSetChanged();
+        mAdapter.swapList(mGames);
         }
     }
 

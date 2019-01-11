@@ -59,16 +59,14 @@ public class GameFragment extends Fragment {
     private FirebaseFirestore firebaseDb;
 
     private int countScore = 0;
-    private int countLife;
+    private int countLife = 3;
 
     public GameFragment() {
-        // Required empty public constructor
     }
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_game, container, false);
 
@@ -92,15 +90,18 @@ public class GameFragment extends Fragment {
         final MediaPlayer heart_down_sound = MediaPlayer.create(view.getContext(), R.raw.heart_down_sound);
         final MediaPlayer heart_up_sound = MediaPlayer.create(view.getContext(), R.raw.heart_up_sound);
 
-
+        // Access a Room instance from your fragment
         db = GameDatabase.getInstance(view.getContext());
 
-        // Access a Cloud Firestore instance from your Activity
+        // Access a Cloud Firestore instance from your fragment
         firebaseDb = FirebaseFirestore.getInstance();
 
-        new GameAsyncTask(TASK_GET_ALL_GAME).execute();
+        new GameAsyncTask(TASK_GET_ALL_GAME).execute();         ////////////////////////////////////////    wat doet dit?
+
+        // start game with 3 hearts
         updateLife(countLife);
 
+        // When clicked on settings button, open the settings activity
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,9 +131,10 @@ public class GameFragment extends Fragment {
                         .setPosition(viewKonfetti.getX() + viewKonfetti.getWidth() / 2, viewKonfetti.getY() + viewKonfetti.getHeight() / 2)
                         .burst(100);
 
+                // insert in room database
                 new GameAsyncTask(TASK_INSERT_GAME).execute(game);
 
-                // Add a new document with a generated ID
+                // Insert in firebase. adds a new document with a generated ID
                 firebaseDb.collection("scores")
                         .add(game)
                         .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -150,6 +152,7 @@ public class GameFragment extends Fragment {
             }
         });
 
+        //start timer, it start from 00:00
         chronometer.start();
 
         addLife.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +160,7 @@ public class GameFragment extends Fragment {
             public void onClick(View v) {
                 life1.setVisibility(View.INVISIBLE);
 
+                // dont count and play a sound when life is already 3
                 if (countLife < 3) {
                     countLife++;
                     heart_up_sound.start();
@@ -166,6 +170,7 @@ public class GameFragment extends Fragment {
             }
         });
 
+        // dont count down and play sound when life is already 0
         takeLife.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,9 +179,9 @@ public class GameFragment extends Fragment {
                     heart_down_sound.start();
                 }
                 updateLife(countLife);
+
             }
         });
-
 
         addPoint.setOnClickListener(new View.OnClickListener() {
             @Override
