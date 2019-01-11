@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "47375378483",
+    "firebase_url": "https://my-project-1491398814112.firebaseio.com",
+    "project_id": "my-project-1491398814112",
+    "storage_bucket": "my-project-1491398814112.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:47375378483:android:7ca84bdbb4b4baee",
+        "android_client_info": {
+          "package_name": "com.example.blackhorse.matchingcardgame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "47375378483-o04hseno2gn101q20v602lsena0sd1lv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.blackhorse.matchingcardgame",
+            "certificate_hash": "8f7ad77e4de6de58f50de9eabb0af92507a4a384"
+          }
+        },
+        {
+          "client_id": "47375378483-j4lf1ufmcbv2ph2mv879scp3du63nqk5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwAODWEpyn4Wzlp0OE3GPyVzTmzGZvs7c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "47375378483-j4lf1ufmcbv2ph2mv879scp3du63nqk5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

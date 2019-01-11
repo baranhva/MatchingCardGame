@@ -5,10 +5,15 @@
 
     <dimen name="text_size_16dp">16dp</dimen>
 
+    <dimen name="size_0dp">0dp</dimen>
     <dimen name="size_8dp">8dp</dimen>
     <dimen name="size_16dp">16dp</dimen>
     <dimen name="size_32dp">32dp</dimen>
     <dimen name="size_64dp">64dp</dimen>
+    <dimen name="size_128dp">128dp</dimen>
+
+    <dimen name="heart_h">20dp</dimen>
+    <dimen name="heart_w">25dp</dimen>
 
 
 </resources>

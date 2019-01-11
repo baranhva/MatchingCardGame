@@ -5,6 +5,7 @@
     <string name="name_title">NAME</string>
     <string name="score_title">SCORE</string>
     <string name="life_title">LIFE</string>
+    <string name="settings_title">SETTINGS</string>
     <string name="time_title">TIME</string>
     <string name="rank_index">1</string>
 
@@ -20,7 +21,7 @@
     <string name="start">START</string>
 
 
-    <string name="name_dummy">PETER DUMMY</string>
+    <string name="name_dummy">TEST TEST</string>
     <string name="score_dummy">498</string>
     <string name="send_database">SAVE</string>
 

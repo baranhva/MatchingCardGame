@@ -31,7 +31,8 @@ dependencies {
     // room storage
     def room_version = "1.1.1"
     implementation "android.arch.persistence.room:runtime:$room_version"
-    annotationProcessor "android.arch.persistence.room:compiler:$room_version" // use kapt for Kotlin
+    annotationProcessor "android.arch.persistence.room:compiler:$room_version"
+    // use kapt for Kotlin
     // optional - RxJava support for Room
     implementation "android.arch.persistence.room:rxjava2:$room_version"
     // optional - Guava support for Room, including Optional and ListenableFuture
@@ -47,7 +48,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore:17.1.5'
 
     //confetti
-      implementation 'nl.dionsegijn:konfetti:1.1.2'
+    implementation 'nl.dionsegijn:konfetti:1.1.2'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71'
 
 }

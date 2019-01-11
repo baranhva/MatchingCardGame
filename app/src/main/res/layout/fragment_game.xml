@@ -15,7 +15,7 @@
         android:id="@+id/lifeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/size_32dp"
         android:text="@string/life_title"
         android:textColor="@color/superMarioWhite"
         app:layout_constraintEnd_toStartOf="@+id/scoreTitle"
@@ -24,8 +24,8 @@
 
     <ImageView
         android:id="@+id/life1"
-        android:layout_width="25dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/heart_w"
+        android:layout_height="@dimen/heart_h"
         android:src="@drawable/red_heart"
         app:layout_constraintEnd_toStartOf="@+id/life2"
         app:layout_constraintStart_toStartOf="@+id/lifeTitle"
@@ -34,8 +34,8 @@
 
     <ImageView
         android:id="@+id/life2"
-        android:layout_width="25dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/heart_w"
+        android:layout_height="@dimen/heart_h"
         android:src="@drawable/red_heart"
         app:layout_constraintEnd_toEndOf="@+id/lifeTitle"
         app:layout_constraintStart_toStartOf="@+id/lifeTitle"
@@ -44,8 +44,8 @@
 
     <ImageView
         android:id="@+id/life3"
-        android:layout_width="25dp"
-        android:layout_height="20dp"
+        android:layout_width="@dimen/heart_w"
+        android:layout_height="@dimen/heart_h"
         android:src="@drawable/red_heart"
         app:layout_constraintEnd_toEndOf="@+id/lifeTitle"
         app:layout_constraintStart_toEndOf="@+id/life2"
@@ -56,7 +56,7 @@
         android:id="@+id/scoreTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/size_32dp"
         android:text="@string/score_title"
         android:textColor="@color/superMarioWhite"
         app:layout_constraintEnd_toEndOf="parent"
@@ -77,7 +77,7 @@
         android:id="@+id/timeTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="@dimen/size_32dp"
         android:text="@string/time_title"
         android:textColor="@color/superMarioWhite"
         app:layout_constraintEnd_toEndOf="parent"
@@ -98,7 +98,7 @@
         android:id="@+id/addLife"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="@dimen/size_64dp"
         android:background="@color/superMarioGreen"
         android:text="@string/add_life"
         android:textColor="@color/superMarioRed"
@@ -110,7 +110,7 @@
         android:id="@+id/takeLife"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/size_8dp"
         android:background="@color/superMarioYellow"
         android:text="@string/take_life"
         android:textColor="@color/superMarioRed"
@@ -123,19 +123,18 @@
         android:id="@+id/addPoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
         android:background="@color/superMarioGreen"
         android:text="@string/add_point"
         android:textColor="@color/superMarioRed"
         app:layout_constraintEnd_toEndOf="@+id/scoreTitle"
         app:layout_constraintStart_toStartOf="@+id/scoreTitle"
-        app:layout_constraintTop_toBottomOf="@+id/yourScore" />
+        app:layout_constraintTop_toTopOf="@+id/addLife" />
 
     <Button
         android:id="@+id/takePoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/size_8dp"
         android:background="@color/superMarioYellow"
         android:text="@string/take_point"
         android:textColor="@color/superMarioRed"
@@ -143,11 +142,22 @@
         app:layout_constraintStart_toStartOf="@+id/addPoint"
         app:layout_constraintTop_toBottomOf="@+id/addPoint" />
 
+    <Button
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/superMarioBlack"
+        android:text="@string/settings_title"
+        android:textColor="@color/superMarioRed"
+        app:layout_constraintEnd_toEndOf="@+id/chronometer"
+        app:layout_constraintStart_toStartOf="@+id/chronometer"
+        app:layout_constraintTop_toTopOf="@+id/addPoint" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/yourName"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/size_0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="@dimen/size_64dp"
         app:layout_constraintBottom_toTopOf="@+id/save"
         app:layout_constraintEnd_toEndOf="@+id/chronometer"
         app:layout_constraintStart_toStartOf="@+id/takeLife">

@@ -1,6 +1,7 @@
 package com.example.blackhorse.matchingcardgame.fragments;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.AsyncTask;
@@ -25,6 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.blackhorse.matchingcardgame.R;
+import com.example.blackhorse.matchingcardgame.activities.SettingActivity;
 import com.example.blackhorse.matchingcardgame.database.GameDatabase;
 import com.example.blackhorse.matchingcardgame.models.Game;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -48,7 +50,7 @@ public class GameFragment extends Fragment {
 
     private ImageView life1, life2, life3;
     private TextView yourScore;
-    private Button addPoint, takePoint, addLife, takeLife, save;
+    private Button addPoint, takePoint, addLife, takeLife, save, settings;
     private TextInputLayout yourName;
     private Chronometer chronometer;
     private KonfettiView viewKonfetti;
@@ -79,6 +81,7 @@ public class GameFragment extends Fragment {
         addLife = view.findViewById(R.id.addLife);
         takeLife = view.findViewById(R.id.takeLife);
         save = view.findViewById(R.id.save);
+        settings = view.findViewById(R.id.settings);
         yourName = view.findViewById(R.id.yourName);
         yourScore.setText(String.valueOf(countScore));
         chronometer = view.findViewById(R.id.chronometer);
@@ -97,6 +100,14 @@ public class GameFragment extends Fragment {
 
         new GameAsyncTask(TASK_GET_ALL_GAME).execute();
         updateLife(countLife);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
