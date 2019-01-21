@@ -51,5 +51,9 @@ dependencies {
     implementation 'nl.dionsegijn:konfetti:1.1.2'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.2.71'
 
+    //livedata
+    def lifecycle_version = "1.1.1"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
 }
 apply plugin: 'com.google.gms.google-services'

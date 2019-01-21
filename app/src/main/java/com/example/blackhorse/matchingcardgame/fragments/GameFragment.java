@@ -8,7 +8,9 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import nl.dionsegijn.konfetti.Confetti;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
@@ -29,6 +31,7 @@ import com.example.blackhorse.matchingcardgame.R;
 import com.example.blackhorse.matchingcardgame.activities.SettingActivity;
 import com.example.blackhorse.matchingcardgame.database.GameDatabase;
 import com.example.blackhorse.matchingcardgame.models.Game;
+import com.example.blackhorse.matchingcardgame.viewmodel.MainViewModel;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.snackbar.Snackbar;
@@ -43,10 +46,13 @@ import java.util.List;
  */
 public class GameFragment extends Fragment {
 
-    private final static int TASK_GET_ALL_GAME = 0;
-    private final static int TASK_DELETE_GAME = 1;
-    private final static int TASK_UPDATE_GAME = 2;
-    private final static int TASK_INSERT_GAME = 3;
+//    private final static int TASK_GET_ALL_GAME = 0;
+//    private final static int TASK_DELETE_GAME = 1;
+//    private final static int TASK_UPDATE_GAME = 2;
+//    private final static int TASK_INSERT_GAME = 3;
+
+//        private static GameDatabase db;
+
 
     private ImageView life1, life2, life3;
     private TextView yourScore;
@@ -55,7 +61,8 @@ public class GameFragment extends Fragment {
     private Chronometer chronometer;
     private KonfettiView viewKonfetti;
 
-    private static GameDatabase db;
+    private MainViewModel mMainViewModel;
+
     private FirebaseFirestore firebaseDb;
 
     private int countScore = 0;
@@ -91,12 +98,29 @@ public class GameFragment extends Fragment {
         final MediaPlayer heart_up_sound = MediaPlayer.create(view.getContext(), R.raw.heart_up_sound);
 
         // Access a Room instance from your fragment
-        db = GameDatabase.getInstance(view.getContext());
+//        db = GameDatabase.getInstance(view.getContext());
+
+//        new GameAsyncTask(TASK_GET_ALL_GAME).execute();         ////////////////////////////////////////    wat doet dit?
+
+        mMainViewModel = new MainViewModel(view.getContext());
+
+        mMainViewModel.getGames().observe(this, new Observer<List<Game>>() {
+
+            @Override
+            public void onChanged(@Nullable List<Game> games) {
+                if (!games.isEmpty()) {
+                    yourName.getEditText().setText(games.get(games.size() - 1).getUserName());
+                    countScore = games.get(games.size() - 1).getScore();
+                    yourScore.setText(String.valueOf(countScore));
+                    countLife = games.get(games.size() - 1).getHeart();
+                    updateLife(countLife);
+                }
+                }
+        });
 
         // Access a Cloud Firestore instance from your fragment
         firebaseDb = FirebaseFirestore.getInstance();
 
-        new GameAsyncTask(TASK_GET_ALL_GAME).execute();         ////////////////////////////////////////    wat doet dit?
 
         // start game with 3 hearts
         updateLife(countLife);
@@ -132,7 +156,8 @@ public class GameFragment extends Fragment {
                         .burst(100);
 
                 // insert in room database
-                new GameAsyncTask(TASK_INSERT_GAME).execute(game);
+//                new GameAsyncTask(TASK_INSERT_GAME).execute(game);
+                mMainViewModel.insert(game);
 
                 // Insert in firebase. adds a new document with a generated ID
                 firebaseDb.collection("scores")
@@ -228,41 +253,41 @@ public class GameFragment extends Fragment {
         }
     }
 
-    public class GameAsyncTask extends AsyncTask<Game, Void, List<Game>> {
-
-        private int taskCode;
-
-        private GameAsyncTask(int taskCode) {
-            this.taskCode = taskCode;
-        }
-
-        @Override
-        protected List doInBackground(Game... games) {
-            switch (taskCode) {
-                case TASK_DELETE_GAME:
-                    db.gameDao().deleteGames(games[0]);
-                    break;
-                case TASK_UPDATE_GAME:
-                    db.gameDao().updateGames(games[0]);
-                    break;
-                case TASK_INSERT_GAME:
-                    db.gameDao().insertGames(games[0]);
-                    break;
-            }
-            //To return a new list with the updated data, we get all the data from the database again.
-            return db.gameDao().getAllGames();
-        }
-
-        @Override
-        protected void onPostExecute(List<Game> list) {
-            super.onPostExecute(list);
-            if (list != null) {
-                if (!list.isEmpty()) {
-                    onGameDbUpdated(list.get(list.size() - 1));
-                }
-            }
-        }
-    }
+//    public class GameAsyncTask extends AsyncTask<Game, Void, List<Game>> {
+//
+//        private int taskCode;
+//
+//        private GameAsyncTask(int taskCode) {
+//            this.taskCode = taskCode;
+//        }
+//
+//        @Override
+//        protected List doInBackground(Game... games) {
+//            switch (taskCode) {
+//                case TASK_DELETE_GAME:
+//                    db.gameDao().deleteGames(games[0]);
+//                    break;
+//                case TASK_UPDATE_GAME:
+//                    db.gameDao().updateGames(games[0]);
+//                    break;
+//                case TASK_INSERT_GAME:
+//                    db.gameDao().insertGames(games[0]);
+//                    break;
+//            }
+//            //To return a new list with the updated data, we get all the data from the database again.
+//            return db.gameDao().getAllGames();
+//        }
+//
+//        @Override
+//        protected void onPostExecute(List<Game> list) {
+//            super.onPostExecute(list);
+//            if (list != null) {
+//                if (!list.isEmpty()) {
+//                    onGameDbUpdated(list.get(list.size() - 1));
+//                }
+//            }
+//        }
+//    }
 
     private void onGameDbUpdated(Game game) {
         yourName.getEditText().setText(game.getUserName());
@@ -271,5 +296,14 @@ public class GameFragment extends Fragment {
         countLife = game.getHeart();
         updateLife(countLife);
     }
+
+//        private void updateUI() {
+//        if (mAdapter == null) {
+//            mAdapter = new ReminderAdapter( mReminders, this);
+//            mRecyclerView.setAdapter(mAdapter);
+//        } else {
+//            mAdapter.swapList(mReminders);
+//        }
+//    }
 
 }
