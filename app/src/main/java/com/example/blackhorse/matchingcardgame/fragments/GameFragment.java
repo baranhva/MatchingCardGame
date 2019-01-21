@@ -121,7 +121,6 @@ public class GameFragment extends Fragment {
         // Access a Cloud Firestore instance from your fragment
         firebaseDb = FirebaseFirestore.getInstance();
 
-
         // start game with 3 hearts
         updateLife(countLife);
 
