@@ -75,7 +75,7 @@ public class LeaderboardFragment extends Fragment {
                     }
                 });
 
-        GameAdapter mAdapter = new GameAdapter(mGames);
+        mAdapter = new GameAdapter(mGames);
         mRecyclerView.setAdapter(mAdapter);
 
         firebaseDb.collection("scores")

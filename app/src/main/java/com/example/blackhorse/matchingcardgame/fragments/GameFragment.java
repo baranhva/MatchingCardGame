@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.blackhorse.matchingcardgame.R;
+import com.example.blackhorse.matchingcardgame.activities.GameListActivity;
 import com.example.blackhorse.matchingcardgame.activities.SettingActivity;
 import com.example.blackhorse.matchingcardgame.database.GameDatabase;
 import com.example.blackhorse.matchingcardgame.models.Game;
@@ -48,7 +49,7 @@ public class GameFragment extends Fragment {
 
     private ImageView life1, life2, life3;
     private TextView yourScore;
-    private Button addPoint, takePoint, addLife, takeLife, save, settings;
+    private Button addPoint, takePoint, addLife, takeLife, save, settings, detailFlow;
     private TextInputLayout yourName;
     private Chronometer chronometer;
     private KonfettiView viewKonfetti;
@@ -76,6 +77,7 @@ public class GameFragment extends Fragment {
         takeLife = view.findViewById(R.id.takeLife);
         save = view.findViewById(R.id.save);
         settings = view.findViewById(R.id.settings);
+        detailFlow = view.findViewById(R.id.detailFlow);
         yourName = view.findViewById(R.id.yourName);
         yourScore.setText(String.valueOf(countScore));
         chronometer = view.findViewById(R.id.chronometer);
@@ -113,6 +115,14 @@ public class GameFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SettingActivity.class);
+                startActivity(intent);
+            }
+        });
+                // When clicked on detail button, open the game list activity
+        detailFlow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), GameListActivity.class);
                 startActivity(intent);
             }
         });

@@ -27,5 +27,9 @@
     <string name="name_dummy">TEST TEST</string>
     <string name="score_dummy">498</string>
     <string name="send_database">SAVE</string>
+    <string name="title_game_list">Games</string>
+    <string name="title_game_detail">Game Detail</string>
+
+    <string name="detail_flow">Detail</string>
 
 </resources>
